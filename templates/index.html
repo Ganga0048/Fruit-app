@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fruit Classifier</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="container">
+
+    <!-- Logo -->
+    <div class="center">
+        <img src="/static/logo.png" class="logo">
+    </div>
+
+    
+    <div class="card">
+        <h2>Apple or Banana?</h2>
+
+        <form method="POST" enctype="multipart/form-data">
+
+            <!-- Custom upload button -->
+            <label class="custom-file-upload">
+                <input type="file" name="image" id="fileInput" required onchange="previewImage(event)">
+                Choose Image
+            </label>
+
+            <button type="submit">Predict</button>
+        </form>
+    </div>
+
+    <!-- Live Preview Card -->
+    <div class="card" id="previewCard" style="display:none;">
+        <h2>Selected Image</h2>
+        <img id="previewImg" class="uploaded-img" />
+    </div>
+
+    {% if prediction %}
+    <div class="card">
+        <div class="prediction-box">
+            Prediction: {{ prediction }}
+        </div>
+    </div>
+    {% endif %}
+
+</div>
+
+<!-- -------- Live Preview Script -------- -->
+<script>
+function previewImage(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const img = document.getElementById("previewImg");
+    img.src = URL.createObjectURL(file);   
+
+    document.getElementById("previewCard").style.display = "block";
+}
+</script>
+
+</body>
+</html>
